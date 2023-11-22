@@ -1,61 +1,78 @@
 #!/usr/bin/python3
+'''
+A module for working with squares.
+'''
+
+
 class Square:
-    """
-    creates square object
-    """
+    '''
+    this represents a 2D Polygon
+    with 4 equal and perpendicular sides.
+    '''
     def __init__(self, size=0):
-        self.__size = size
-    """
-    initializes a square object with size
-    Args:
-        __size(int): size of square private property
-    """
+        self.size = size
+
     @property
     def size(self):
         return self.__size
-    """
-    gets size of square
-    """
+
     @size.setter
     def size(self, value):
-        if(type(value) is not int):
-            raise TypeError("size must be an integer")
-        if(value < 0):
-            raise ValueError("size must be >= 0")
-        self.__size = value
-        """
-        sets size of square
-        square must be integer and greater than 0
-        """
+        if not isinstance(value, int):
+            raise TypeError('size must be an integer')
+        else:
+            if value < 0:
+                raise ValueError('size must be >= 0')
+            else:
+                self.__size = value
+
     def area(self):
-        return(self.__size**2)
-        """
-        return area of square based on size
-        """
-    def __lt__(self, other):
-        return self.area() < other.area()
-        """
-        less than
-        """
-    def __eq__(self, other):
-        return self.area() == other.area()
-        """
-        equal to
-        """
-    def __le__(self, other):
-        return self.area() <= other.area()
-        """
-        less than equal to
-        """
-    def __gt__(self, other):
-        return self.area() > other.area()
-        """
-        greater than
-        """
-    def __ge__(self, other):
-        return self.area() >= other.area()
-        """
-        greater equal
-        """
-    def __ne__(self, other):
-        return self.area() != other.area()
+        return self.size ** 2
+
+    def __eq__(self, value):
+        if isinstance(value, Square):
+            return self.area() == value.area()
+        else:
+            return False
+
+    def __ne__(self, value):
+        if isinstance(value, Square):
+            return self.area() != value.area()
+        else:
+            return True
+
+    def __gt__(self, value):
+        if isinstance(value, Square):
+            return self.area() > value.area()
+        else:
+            err_msg = "'>' not supported between instances of 'Square' and"
+            val_type = str(type(value)).split("'")[1]
+            raise TypeError("{} '{}'".format(err_msg, val_type))
+            return False
+
+    def __ge__(self, value):
+        if isinstance(value, Square):
+            return self.area() >= value.area()
+        else:
+            err_msg = "'>=' not supported between instances of 'Square' and"
+            val_type = str(type(value)).split("'")[1]
+            raise TypeError("{} '{}'".format(err_msg, val_type))
+            return False
+
+    def __lt__(self, value):
+        if isinstance(value, Square):
+            return self.area() < value.area()
+        else:
+            err_msg = "'<' not supported between instances of 'Square' and"
+            val_type = str(type(value)).split("'")[1]
+            raise TypeError("{} '{}'".format(err_msg, val_type))
+            return False
+
+    def __le__(self, value):
+        if isinstance(value, Square):
+            return self.area() <= value.area()
+        else:
+            err_msg = "'<=' not supported between instances of 'Square' and"
+            val_type = str(type(value)).split("'")[1]
+            raise TypeError("{} '{}'".format(err_msg, val_type))
+            return False
