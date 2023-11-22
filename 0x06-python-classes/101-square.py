@@ -1,71 +1,69 @@
 #!/usr/bin/python3
+'''
+A module for working with singly linked lists.
+'''
+
+
 class Square:
-    """
-    creates a square object
-    """
+    '''
+    this represents a node in a singly linked list.
+    '''
     def __init__(self, size=0, position=(0, 0)):
-        self.__size = size
-        self.__position = position
-        """
-        initializes instance of a square
-        Args:
-            __size(int): size of square
-            __position(tuple):position
-        """
+        self.size = size
+        self.position = position
+
     @property
     def size(self):
         return self.__size
-        """
-        gets size
-        """
+
     @property
     def position(self):
         return self.__position
-        """
-        gets position
-        """
-    @position.setter
-    def position(self, value):
-        if(type(value) is not tuple or len(value) is not 2 or value[0] < 0 or
-           value[1] < 0):
-            raise TypeError("position must be a tuple of 2 positive integers")
-        self.__position = value
-        """
-        sets position
-        position has to be a tuple of positive integers
-        """
+
     @size.setter
     def size(self, value):
-        if(type(value) is not int):
-            raise TypeError("size must be an integer")
-        if(value < 0):
-            raise ValueError("size must be >= 0")
-        self.__size = value
-        """
-        sets size
-        size has to be an integer and positive
-        """
+        if not isinstance(value, int):
+            raise TypeError('size must be an integer')
+        else:
+            if value < 0:
+                raise ValueError('size must be >= 0')
+            else:
+                self.__size = value
+
+    @position.setter
+    def position(self, value):
+        is_invalid_value = True
+        error_msg = 'position must be a tuple of 2 positive integers'
+        if isinstance(value, tuple):
+            if len(value) == 2:
+                if isinstance(value[0], int) and isinstance(value[1], int):
+                    if value[0] >= 0 and value[1] >= 0:
+                        is_invalid_value = False
+        if is_invalid_value:
+            raise TypeError(error_msg)
+        else:
+            self.__position = value
 
     def area(self):
-        return(self.__size**2)
-        """
-        returns the area of the size of the square
-        """
+        return self.size ** 2
+
     def my_print(self):
-        if(self.position[1]):
-            print('' * self.position[1])
-        for x in range(self.size):
-            if(self.position[0]):
-                print(" " * self.position[0], end='')
-            print("#" * self.size, end='')
-            print()
-        """
-        prints a square of hashtags based on position and size
-        """
+        if self.size == 0:
+            print('\n')
+        else:
+            print('{}'.format('\n' * self.position[1]), end='')
+            for i in range(self.size):
+                print('{}{}'.format(' ' * self.position[0], '#' * self.size))
+
     def __str__(self):
-        if(self.size == 0):
-            return ''
-        newlines = '\n' * self.position[1]
-        spaces = ' ' * self.position[0]
-        hashes = "#" * self.size
-        return newlines + '\n'.join(spaces + hashes for x in range(self.size))
+        res = []
+        if self.size == 0:
+            res.append('')
+        else:
+            if self.position[1] > 0:
+                res.append('{}'.format('\n' * (self.position[1] - 1)))
+            for i in range(self.size):
+                res.append('{}{}'.format(
+                    ' ' * self.position[0],
+                    '#' * self.size))
+        return '\n'.join(res)
