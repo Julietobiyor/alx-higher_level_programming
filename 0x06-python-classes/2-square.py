@@ -1,17 +1,20 @@
 #!/usr/bin/python3
+"""
+A module for working with squares.
+"""
+
+
 class Square:
     """
-    creates a square object
+    This represents a 2D Polygon
+    with 4 equal and perpendicular sides.
     """
     def __init__(self, size=0):
-        if(type(size) is not int):
-            raise TypeError("size must be an integer")
-        if(size < 0):
-            raise ValueError("size must be >= 0")
-        self.__size = size
-        """
-        initializes instance of a square
-        Args:
-            __size(int): size of square
-            size must be positive and integer type
-        """
+        super().__init__()
+        if not isinstance(size, int):
+            raise TypeError('size must be an integer')
+        else:
+            if size < 0:
+                raise ValueError('size must be >= 0')
+            else:
+                self.__size = size
