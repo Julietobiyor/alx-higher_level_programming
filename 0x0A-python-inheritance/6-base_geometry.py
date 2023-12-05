@@ -1,8 +1,13 @@
 #!/usr/bin/python3
-""" Geometry module
-"""
+"""basegeometryclass"""
 
 
 class BaseGeometry:
-    """ BaseGeometry class
-    """
+    """instance of geometry class"""
+    def __init__(self):
+        """initialize class"""
+        pass
+
+    def area(self):
+        """raises exception"""
+        raise Exception("area() is not implemented")

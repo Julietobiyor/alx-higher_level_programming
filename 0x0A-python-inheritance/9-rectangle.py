@@ -1,33 +1,37 @@
 #!/usr/bin/python3
-""" Rectangle module
-"""
-base_class = __import__('7-base_geometry').BaseGeometry
+"""basegeometryclass"""
 
 
-class Rectangle(base_class):
-    """ Subclass of BaseGeometry class
-    """
-
-    def __init__(self, width, height):
-        """ Instantiation method
-            Args:
-                width (int): rectangle's width
-                height (int): rectangle's height
-        """
-        base_class.integer_validator(self, "width", width)
-        base_class.integer_validator(self, "height", height)
-        self.__width = width
-        self.__height = height
+class BaseGeometry:
 
     def area(self):
-        """ Area method to calculate area of rectangle instance / object
-            Args: none
-            Return: area of rectangle
-        """
+        """raises exception"""
+        raise Exception("area() is not implemented")
+
+    def integer_validator(self, name, value):
+        """validates value for integer and positive"""
+        if type(value) != int:
+            raise TypeError("{} must be an integer".format(name))
+        if value <= 0:
+            raise ValueError("{} must be greater than 0".format(name))
+
+
+"""class rectangle"""
+
+
+class Rectangle(BaseGeometry):
+    """creates rectangle class"""
+    def __init__(self, width, height):
+        """initializes rectangle"""
+        if not super().integer_validator("width", width):
+            self.__width = width
+        if not super().integer_validator("height", height):
+            self.__height = height
+
+    def area(self):
+        """returns area"""
         return self.__width * self.__height
 
     def __str__(self):
-        """ __str__ magic method to print formated string
-            of rectangle object
-        """
-        return f"[Rectangle] {self.__width}/{self.__height}"
+        """returns string"""
+        return "[Rectangle] {}/{}".format(self.__width, self.__height)

@@ -1,34 +1,54 @@
 #!/usr/bin/python3
-""" Square module
-"""
-base_class = __import__('9-rectangle').Rectangle
+"""basegeometryclass"""
 
 
-class Square(base_class):
-    """ Square class: subclass of Rectanlge class
-    """
+class BaseGeometry:
+
+    def area(self):
+        """raises exception"""
+        raise Exception("area() is not implemented")
+
+    def integer_validator(self, name, value):
+        """validates value for integer and positive"""
+        if type(value) != int:
+            raise TypeError("{} must be an integer".format(name))
+        if value <= 0:
+            raise ValueError("{} must be greater than 0".format(name))
+
+
+"""class rectangle"""
+
+
+class Rectangle(BaseGeometry):
+    """creates rectangle class"""
+    def __init__(self, width, height):
+        """initializes rectangle"""
+        if not super().integer_validator("width", width):
+            self.__width = width
+        if not super().integer_validator("height", height):
+            self.__height = height
+
+    def area(self):
+        """returns area"""
+        return self.__width * self.__height
+
+    def __str__(self):
+        """returns string"""
+        return "[Rectangle] {}/{}".format(self.__width, self.__height)
+
+
+"""class square"""
+
+
+class Square(Rectangle):
+    """creates square"""
 
     def __init__(self, size):
-        """ Instantiation method
-            Args:
-                size(int): size of square
-            Return: nothing
-        """
+        """initializes rectangle"""
         self.integer_validator("size", size)
         self.__size = size
         super().__init__(size, size)
 
-    def area(self):
-        """ Area method to compute Square object's area
-            Args: none
-            Return: area of Square object
-        """
-        return self.__size * self.__size
-
     def __str__(self):
-        """ __str__ methods
-            Args: none
-            Return: unofficial, formatted string representation of
-            Square object
-        """
-        return f"[Square] {self.__size}/{self.__size}"
+        """returns string of square"""
+        return "[Square] {}/{}".format(self.__size, self.__size)
