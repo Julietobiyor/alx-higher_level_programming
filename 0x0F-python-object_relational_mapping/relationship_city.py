@@ -1,16 +1,20 @@
 #!/usr/bin/python3
-# sql alchemy awesome
+""" City Class def """
 from sqlalchemy import Column, Integer, String
+from relationship_state import Base
 from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship
-from relationship_state import Base, State
-from sqlalchemy.orm import relationship
 
 
 class City(Base):
-    # creates city
-    __tablename__ = 'cities'
+    """
+    City class sup calss from Base
+    ORM first try :D
 
-    id = Column(Integer, primary_key=True)
+    Attributes:
+        id: id that will be asigned from the sql
+        name: name of the state
+    """
+    __tablename__ = "cities"
+    id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(128), nullable=False)
     state_id = Column(Integer, ForeignKey('states.id'), nullable=False)
